@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -ex
+
+npm run build
+aws s3 sync build/ s3://givecamp.coffeeandcode.com --delete
