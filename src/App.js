@@ -14,13 +14,27 @@ const floaterEmails = [
   'sarah@codinggeekette.com'
 ];
 
+function isTechnicalVolunteer(csvRow) {
+  if (
+    csvRow['Ticket Type'] === 'Copywriter' ||
+    csvRow['Ticket Type'] === 'Non Technical Volunteer' ||
+    csvRow['Ticket Type'] === 'Non-profit representative' ||
+    csvRow['Ticket Type'] === 'Organizer' ||
+    csvRow['Ticket Type'] === 'Project Manager'
+  ) {
+    return false;
+  }
+  return true;
+}
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       dataLoaded: false,
       tshirts: {},
-      ticketTypes: {}
+      ticketTypes: {},
+      yearsOfExperience: {}
     };
   }
 
@@ -51,10 +65,23 @@ class App extends Component {
             return memo;
           }, {});
 
+          const yearsOfExperience = results.data.reduce((memo, row, _index) => {
+            if (!isTechnicalVolunteer(row)) {
+              return memo;
+            }
+            if (!Object.keys(memo).includes(row['Experience level:'])) {
+              memo[row['Experience level:']] = 0;
+            }
+
+            memo[row['Experience level:']] += 1;
+            return memo;
+          }, {});
+
           this.setState({
             dataLoaded: true,
             ticketTypes,
-            tshirts
+            tshirts,
+            yearsOfExperience
           });
         },
         header: true,
