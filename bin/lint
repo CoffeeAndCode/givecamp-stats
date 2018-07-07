@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ex
+
+node_modules/.bin/prettier --list-different '**/*.{css,graphql,js,json,jsx,less,markdown,md,scss,ts,tsx}'
+node_modules/.bin/stylelint '**/*.css'
+node_modules/.bin/eslint .

@@ -2,6 +2,15 @@
   "name": "givecamp-stats",
   "version": "0.1.0",
   "private": true,
+  "engine": {
+    "node": ">=10.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "chart.js": "^2.7.2",
     "papaparse": "^4.5.0",
@@ -10,10 +19,12 @@
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-config-universe": "^1.0.7",
+    "prettier": "^1.13.7",
+    "stylelint": "^9.3.0",
+    "stylelint-config-prettier": "^3.3.0",
+    "stylelint-order": "^0.8.1"
   }
 }

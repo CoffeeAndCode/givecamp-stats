@@ -5,10 +5,10 @@ import TShirts from './TShirts';
 export default ({ tshirts, ticketTypes }) => {
   return (
     <div>
-      <hr/>
+      <hr />
       <TicketTypes data={ticketTypes} />
-      <hr/>
+      <hr />
       <TShirts data={tshirts} />
     </div>
   );
-}
+};

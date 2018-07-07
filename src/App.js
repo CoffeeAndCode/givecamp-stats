@@ -21,14 +21,14 @@ class App extends Component {
       dataLoaded: false,
       tshirts: {},
       ticketTypes: {}
-    }
+    };
   }
 
   handleChange(event) {
     Array.from(event.target.files).forEach(file => {
       Papa.parse(file, {
         complete: (results, file) => {
-          console.log("Parsing complete:", results, file);
+          console.log('Parsing complete:', results, file);
 
           const ticketTypes = results.data.reduce((memo, row, _index) => {
             if (!Object.keys(memo).includes(row['Ticket Type'])) {
@@ -40,7 +40,9 @@ class App extends Component {
           }, {});
 
           const tshirts = results.data.reduce((memo, row, _index) => {
-            const tshirtKey = `${this.tshirtType(row)} - ${row['T-shirt size']}`;
+            const tshirtKey = `${this.tshirtType(row)} - ${
+              row['T-shirt size']
+            }`;
             if (!Object.keys(memo).includes(tshirtKey)) {
               memo[tshirtKey] = 0;
             }
@@ -69,10 +71,18 @@ class App extends Component {
           <h1 className="App-title">Cleveland GiveCamp</h1>
         </header>
 
-        <label className="App-file-label" htmlFor="csv-file">Select an EventBrite CSV File</label>
-        <input className="App-file-input" id="csv-file" name="file" onChange={(event) => this.handleChange(event)} type="file" />
+        <label className="App-file-label" htmlFor="csv-file">
+          Select an EventBrite CSV File
+        </label>
+        <input
+          className="App-file-input"
+          id="csv-file"
+          name="file"
+          onChange={event => this.handleChange(event)}
+          type="file"
+        />
 
-        {this.state.dataLoaded ? <Stats {...this.state} /> : '' }
+        {this.state.dataLoaded ? <Stats {...this.state} /> : ''}
       </div>
     );
   }

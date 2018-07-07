@@ -1,5 +1,16 @@
 import React from 'react';
-import Tshirt from './TShirt';
+import { Bar } from 'react-chartjs-2';
+
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  maintainAspectRatio: false,
+  title: {
+    display: true,
+    text: 'T-Shirt Sizes'
+  }
+};
 
 const orderedSizes = [
   'Normal - S',
@@ -16,16 +27,38 @@ const orderedSizes = [
   'Organizer - XXXL'
 ];
 
-function renderItem(data) {
-  return function(shirtSize) {
-    return <Tshirt count={data[shirtSize] || 0} key={shirtSize} type={shirtSize} />;
-  }
+function chartData(data) {
+  return {
+    datasets: [
+      {
+        backgroundColor: [
+          '#fc412d',
+          '#fb9237',
+          '#fcee63',
+          '#87fc72',
+          '#59b2fc',
+          '#932890',
+          '#fc412d',
+          '#fb9237',
+          '#fcee63',
+          '#87fc72',
+          '#59b2fc',
+          '#932890'
+        ],
+        data: orderedSizes.map(size => data[size])
+      }
+    ],
+    labels: orderedSizes
+  };
 }
 
 export default ({ data }) => {
   return (
-    <ul>
-      {orderedSizes.map(renderItem(data))}
-    </ul>
+    <div
+      className="chart-container"
+      style={{ position: 'relative', maxHeight: '400px', minHeight: '300px' }}
+    >
+      <Bar data={chartData(data)} options={chartOptions} />
+    </div>
   );
 };
