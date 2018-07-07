@@ -1,16 +1,39 @@
 import React from 'react';
-import TicketType from './TicketType';
+import { Bar } from 'react-chartjs-2';
 
-function renderTicketType(data) {
-  return function(ticketType) {
-    return <TicketType count={data[ticketType]} key={ticketType} type={ticketType} />;
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  maintainAspectRatio: false,
+  title: {
+    display: true,
+    text: 'Ticket Types'
   }
+};
+
+function chartData(data) {
+  return {
+    datasets: [{
+      backgroundColor: [
+        '#fc412d',
+        '#fb9237',
+        '#fcee63',
+        '#87fc72',
+        '#59b2fc',
+        '#932890',
+        '#fc91fb'
+      ],
+      data: Object.values(data)
+    }],
+    labels: Object.keys(data)
+  };
 }
 
 export default ({ data }) => {
   return (
-    <ul>
-      {Object.keys(data).map(renderTicketType(data))}
-    </ul>
+    <div className="chart-container" style={{ position: 'relative', maxHeight: '400px', minHeight: '300px' }}>
+      <Bar data={chartData(data)} options={chartOptions} height={300} width={300} />
+    </div>
   );
 };

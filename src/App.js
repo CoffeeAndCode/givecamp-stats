@@ -31,7 +31,6 @@ class App extends Component {
           console.log("Parsing complete:", results, file);
 
           const ticketTypes = results.data.reduce((memo, row, _index) => {
-            if (row['Ticket Type'] === undefined) { return memo; }
             if (!Object.keys(memo).includes(row['Ticket Type'])) {
               memo[row['Ticket Type']] = 0;
             }
@@ -41,7 +40,6 @@ class App extends Component {
           }, {});
 
           const tshirts = results.data.reduce((memo, row, _index) => {
-            if (row['Ticket Type'] === undefined) { return memo; }
             const tshirtKey = `${this.tshirtType(row)} - ${row['T-shirt size']}`;
             if (!Object.keys(memo).includes(tshirtKey)) {
               memo[tshirtKey] = 0;
@@ -57,7 +55,8 @@ class App extends Component {
             tshirts
           });
         },
-        header: true
+        header: true,
+        skipEmptyLines: true
       });
     });
   }
