@@ -1,3 +1,4 @@
+import { get, set } from 'idb-keyval';
 import Papa from 'papaparse';
 import React, { Component } from 'react';
 import logo from './logo.svg';
@@ -37,6 +38,10 @@ class App extends Component {
       ticketTypes: {},
       yearsOfExperience: {}
     };
+  }
+
+  componentWillMount() {
+    get('state').then(state => this.setState(state));
   }
 
   handleChange(event) {
@@ -108,6 +113,13 @@ class App extends Component {
             return memo;
           }, {});
 
+          set('state', {
+            dataLoaded: true,
+            numberOfGiveCamps,
+            ticketTypes,
+            tshirts,
+            yearsOfExperience
+          });
           this.setState({
             dataLoaded: true,
             numberOfGiveCamps,
