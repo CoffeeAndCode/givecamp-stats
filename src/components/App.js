@@ -1,8 +1,8 @@
 import { get, set } from 'idb-keyval';
 import Papa from 'papaparse';
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../assets/images/logo.svg';
+import '../assets/stylesheets/App.css';
 import Stats from './Stats';
 
 const floaterEmails = [
