@@ -40,7 +40,7 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     get('state').then(state => this.setState(state));
   }
 
