@@ -29,7 +29,8 @@ class App extends Component {
       numberOfFloaters: floaterEmails.length,
       tshirts: {},
       ticketTypes: {},
-      yearsOfExperience: {}
+      yearsOfExperience: {},
+      totalCount: 0
     };
   }
 
@@ -112,15 +113,16 @@ class App extends Component {
             numberOfGiveCamps,
             ticketTypes,
             tshirts,
-            yearsOfExperience
+            yearsOfExperience,
+            totalCount: results.data.length
           });
-
           this.setState({
             dataLoaded: true,
             numberOfGiveCamps,
             ticketTypes,
             tshirts,
-            yearsOfExperience
+            yearsOfExperience,
+            totalCount: results.data.length
           });
         },
         header: true,
@@ -147,6 +149,7 @@ class App extends Component {
           onChange={event => this.handleChange(event)}
           type="file"
         />
+        <h1>Total Submissions: {this.state.totalCount}</h1>
 
         {this.state.dataLoaded ? <Stats {...this.state} /> : ''}
       </div>
