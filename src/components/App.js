@@ -5,15 +5,7 @@ import logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/App.css';
 import Stats from './Stats';
 
-const floaterEmails = [
-  'brendan@enrick.com',
-  'james@jamesrgifford.com',
-  'markoiskander@gmail.com',
-  'jon@coffeeandcode.com',
-  'rritchey@worldsynergy.com',
-  'jonesmac82@gmail.com',
-  'sarah@codinggeekette.com'
-];
+const floaterEmails = (process.env.REACT_APP_FLOATERS || '').split(',');
 
 function isTechnicalVolunteer(csvRow) {
   if (
@@ -34,6 +26,7 @@ class App extends Component {
     this.state = {
       dataLoaded: false,
       numberOfGiveCamps: {},
+      numberOfFloaters: floaterEmails.length,
       tshirts: {},
       ticketTypes: {},
       yearsOfExperience: {}
@@ -115,11 +108,13 @@ class App extends Component {
 
           set('state', {
             dataLoaded: true,
+            numberOfFloaters: this.state.numberOfFloaters,
             numberOfGiveCamps,
             ticketTypes,
             tshirts,
             yearsOfExperience
           });
+
           this.setState({
             dataLoaded: true,
             numberOfGiveCamps,
