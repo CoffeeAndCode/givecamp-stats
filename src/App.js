@@ -32,6 +32,7 @@ class App extends Component {
     super();
     this.state = {
       dataLoaded: false,
+      numberOfGiveCamps: {},
       tshirts: {},
       ticketTypes: {},
       yearsOfExperience: {}
@@ -43,6 +44,36 @@ class App extends Component {
       Papa.parse(file, {
         complete: (results, file) => {
           console.log('Parsing complete:', results, file);
+
+          const numberOfGiveCamps = results.data.reduce((memo, row, _index) => {
+            if (
+              row[
+                'How many GiveCamps have you attended before this one?  (All locations.)'
+              ] === ''
+            ) {
+              return memo;
+            }
+            if (
+              !Object.keys(memo).includes(
+                row[
+                  'How many GiveCamps have you attended before this one?  (All locations.)'
+                ]
+              )
+            ) {
+              memo[
+                row[
+                  'How many GiveCamps have you attended before this one?  (All locations.)'
+                ]
+              ] = 0;
+            }
+
+            memo[
+              row[
+                'How many GiveCamps have you attended before this one?  (All locations.)'
+              ]
+            ] += 1;
+            return memo;
+          }, {});
 
           const ticketTypes = results.data.reduce((memo, row, _index) => {
             if (!Object.keys(memo).includes(row['Ticket Type'])) {
@@ -79,6 +110,7 @@ class App extends Component {
 
           this.setState({
             dataLoaded: true,
+            numberOfGiveCamps,
             ticketTypes,
             tshirts,
             yearsOfExperience

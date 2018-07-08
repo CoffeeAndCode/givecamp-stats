@@ -1,9 +1,15 @@
 import React from 'react';
+import NumberOfGiveCamps from './NumberOfGiveCamps';
 import TicketTypes from './TicketTypes';
 import TShirts from './TShirts';
 import YearsOfExperience from './YearsOfExperience';
 
-export default ({ tshirts, ticketTypes, yearsOfExperience }) => {
+export default ({
+  numberOfGiveCamps,
+  tshirts,
+  ticketTypes,
+  yearsOfExperience
+}) => {
   return (
     <div>
       <hr />
@@ -12,6 +18,8 @@ export default ({ tshirts, ticketTypes, yearsOfExperience }) => {
       <TShirts data={tshirts} />
       <hr />
       <YearsOfExperience data={yearsOfExperience} />
+      <hr />
+      <NumberOfGiveCamps data={numberOfGiveCamps} />
     </div>
   );
 };
