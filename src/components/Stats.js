@@ -1,10 +1,12 @@
 import React from 'react';
+import FoodAllergies from './FoodAllergies';
 import NumberOfGiveCamps from './NumberOfGiveCamps';
 import TicketTypes from './TicketTypes';
 import TShirts from './TShirts';
 import YearsOfExperience from './YearsOfExperience';
 
 export default ({
+  foodAllergies,
   numberOfGiveCamps,
   tshirts,
   ticketTypes,
@@ -20,6 +22,8 @@ export default ({
       <YearsOfExperience data={yearsOfExperience} />
       <hr />
       <NumberOfGiveCamps data={numberOfGiveCamps} />
+      <hr />
+      <FoodAllergies data={foodAllergies} />
     </div>
   );
 };

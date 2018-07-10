@@ -25,6 +25,7 @@ class App extends Component {
     super();
     this.state = {
       dataLoaded: false,
+      foodAllergies: {},
       numberOfGiveCamps: {},
       numberOfFloaters: floaterEmails.length,
       tshirts: {},
@@ -74,6 +75,22 @@ class App extends Component {
             return memo;
           }, {});
 
+          const foodAllergies = results.data.reduce((memo, row, _index) => {
+            const dietaryNeed = row['Special dietary needs:']
+              .toLowerCase()
+              .trim();
+            if (['', 'n/a', 'no', 'none'].includes(dietaryNeed)) {
+              return memo;
+            }
+
+            if (!Object.keys(memo).includes(dietaryNeed)) {
+              memo[dietaryNeed] = 0;
+            }
+
+            memo[dietaryNeed] += 1;
+            return memo;
+          }, {});
+
           const ticketTypes = results.data.reduce((memo, row, _index) => {
             if (!Object.keys(memo).includes(row['Ticket Type'])) {
               memo[row['Ticket Type']] = 0;
@@ -109,6 +126,7 @@ class App extends Component {
 
           set('state', {
             dataLoaded: true,
+            foodAllergies,
             numberOfFloaters: this.state.numberOfFloaters,
             numberOfGiveCamps,
             ticketTypes,
@@ -118,6 +136,7 @@ class App extends Component {
           });
           this.setState({
             dataLoaded: true,
+            foodAllergies,
             numberOfGiveCamps,
             ticketTypes,
             tshirts,
