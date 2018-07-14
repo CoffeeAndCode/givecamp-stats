@@ -25,6 +25,7 @@ class App extends Component {
     super();
     this.state = {
       dataLoaded: false,
+      dups: [],
       foodAllergies: {},
       numberOfGiveCamps: {},
       numberOfFloaters: floaterEmails.length,
@@ -74,6 +75,18 @@ class App extends Component {
             ] += 1;
             return memo;
           }, {});
+
+          const emailByCount = results.data.reduce((memo, row, _index) => {
+            if (!Object.keys(memo).includes(row['Email'])) {
+              memo[row['Email']] = 0;
+            }
+
+            memo[row['Email']] += 1;
+            return memo;
+          }, {});
+          const dups = Object.keys(emailByCount).filter(
+            email => emailByCount[email] > 1
+          );
 
           const foodAllergies = results.data.reduce((memo, row, _index) => {
             const dietaryNeed = row['Special dietary needs:']
@@ -126,6 +139,7 @@ class App extends Component {
 
           set('state', {
             dataLoaded: true,
+            dups,
             foodAllergies,
             numberOfFloaters: this.state.numberOfFloaters,
             numberOfGiveCamps,
@@ -136,6 +150,7 @@ class App extends Component {
           });
           this.setState({
             dataLoaded: true,
+            dups,
             foodAllergies,
             numberOfGiveCamps,
             ticketTypes,
