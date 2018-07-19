@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import React, { Component } from 'react';
 import logo from '../assets/images/logo.png';
 import '../assets/stylesheets/App.css';
+import CSVGenerator from './CSVGenerator';
 import Stats from './Stats';
 
 const floaterEmails = (process.env.REACT_APP_FLOATERS || '').split(',');
@@ -24,6 +25,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      csvData: [],
       dataLoaded: false,
       dups: [],
       foodAllergies: {},
@@ -149,6 +151,7 @@ class App extends Component {
             totalCount: results.data.length
           });
           this.setState({
+            csvData: results.data,
             dataLoaded: true,
             dups,
             foodAllergies,
@@ -186,6 +189,8 @@ class App extends Component {
         <h1>Total Submissions: {this.state.totalCount}</h1>
 
         {this.state.dataLoaded ? <Stats {...this.state} /> : ''}
+        <hr />
+        <CSVGenerator rows={this.state.csvData} />
       </div>
     );
   }
