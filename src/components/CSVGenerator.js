@@ -19,7 +19,9 @@ class CSVGenerator extends React.Component {
       row['Team'] = teamsByEmail[row['Email'].toLowerCase().trim()] || '';
     });
 
-    const csvTeamFile = new File([Papa.unparse(this.props.rows)], 'teams.csv', { type: 'text/csv' })
+    const csvTeamFile = new File([Papa.unparse(this.props.rows)], 'teams.csv', {
+      type: 'text/csv'
+    });
     this.setState({ downloadURL: URL.createObjectURL(csvTeamFile) });
   }
 
@@ -43,21 +45,27 @@ class CSVGenerator extends React.Component {
     return (
       <div>
         <h1>CSV Generator</h1>
-        <h2>This will apply teams letters to a newer EventBrite roster you can download to CSV.</h2>
+        <h2>
+          This will apply teams letters to a newer EventBrite roster you can
+          download to CSV.
+        </h2>
         <ol>
-          <li>Add the <em>newest</em> EventBrite export above.</li>
           <li>
-            <p>Add a second CSV file that includes a "Team" column.
-            <label className="App-file-label" htmlFor="team-csv-file">
-              Select a CSV TEAM File
-            </label>
-            <input
-              className="App-file-input"
-              id="team-csv-file"
-              name="file"
-              onChange={event => this.handleChange(event)}
-              type="file"
-            />
+            Add the <em>newest</em> EventBrite export above.
+          </li>
+          <li>
+            <p>
+              Add a second CSV file that includes a "Team" column.
+              <label className="App-file-label" htmlFor="team-csv-file">
+                Select a CSV TEAM File
+              </label>
+              <input
+                className="App-file-input"
+                id="team-csv-file"
+                name="file"
+                onChange={event => this.handleChange(event)}
+                type="file"
+              />
             </p>
           </li>
           <li>Click the link that appears to download the merged CSV file.</li>
@@ -75,7 +83,9 @@ class CSVGenerator extends React.Component {
   }
 
   renderRowCount() {
-    if (this.props.rows.length === 0) { return }
+    if (this.props.rows.length === 0) {
+      return;
+    }
 
     return <p>{this.props.rows.length} rows</p>;
   }
