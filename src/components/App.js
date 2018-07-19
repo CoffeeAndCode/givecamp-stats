@@ -1,7 +1,7 @@
 import { get, set } from 'idb-keyval';
 import Papa from 'papaparse';
 import React, { Component } from 'react';
-import logo from '../assets/images/logo.svg';
+import logo from '../assets/images/logo.png';
 import '../assets/stylesheets/App.css';
 import Stats from './Stats';
 
